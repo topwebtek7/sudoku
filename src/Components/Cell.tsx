@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
 
 // Cell component func
-const Cell = ({ value, width, updateValue, editable, hasError, disable }) => {
+const Cell = ({ value, width, updateValue, editable, hasError, disable }
+  : {value: string, width: number, updateValue: (v: string) => void, editable: boolean, hasError: boolean, disable: boolean}) => {
   const [text, changeText] = useState( value === '0' ? '' : value);
 
   useEffect(() => {
     value === '0' && changeText('');
   }, [value]);
 
-  const onTextChanged = val => {
+  const onTextChanged = (val: string) => {
     const filtered = val.replace(/[^0-9]/g, '');
     changeText(filtered);
     if (filtered) {

@@ -14,10 +14,10 @@ import Cell from './Cell';
 const cellWidth = (Math.round(Dimensions.get('window').width) - 30) / 9;
 
 // Sudoku Matrix component func
-const Matrix = ({ puzzleData, success, filledAll }) => {
+const Matrix = ({ puzzleData, success, filledAll }: {puzzleData: Array<Array<string>>, success: boolean, filledAll: () => void}) => {
   const [matrixData, updateMatrix] = useState(puzzleData);
-  const [errorCells, updateErrorCells] = useState([]);
-  const [validFills, updateValidFills] = useState([]);
+  const [errorCells, updateErrorCells] = useState<Array<string>>([]);
+  const [validFills, updateValidFills] = useState<Array<string>>([]);
 
   useEffect(() => {
     updateMatrix(puzzleData);
@@ -31,7 +31,7 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
   }, [validFills]);
 
   // update value
-  const updateValue = (rowId, colId, val) => {
+  const updateValue = (rowId: number, colId: number, val: string) => {
     const updatedMatrixData = JSON.parse(JSON.stringify(matrixData));
     updatedMatrixData[rowId][colId] = val;
     updateMatrix(updatedMatrixData);
@@ -40,19 +40,19 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
   }
 
   // validate
-  const validate = (updatedMatrixData, rowId, colId) => {
+  const validate = (updatedMatrixData: Array<Array<string>>, rowId: number, colId: number) => {
     const validator = new SudokuValidator(updatedMatrixData, rowId, colId);
     const {squareErrors, rowColErrors} = validator.validate();
     if (validator.isValid()) {
       Keyboard.dismiss();
-      updateValidFills(fills => fills.includes(`${rowId}${colId}`) ? fills : [...fills, `${rowId}${colId}`]);
+      updateValidFills((fills: Array<string>) => fills.includes(`${rowId}${colId}`) ? fills : [...fills, `${rowId}${colId}`]);
       return;
     }
     setErrorCells(squareErrors, rowColErrors);
   }
   
   // set error cells
-  const setErrorCells = async (squareErrors, rowColErrors) => {
+  const setErrorCells = async (squareErrors: Array<string>, rowColErrors: Array<string>) => {
     if (squareErrors.length > 0) {
       updateErrorCells(squareErrors);
       await sleep(2000);
@@ -74,7 +74,7 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
                 key={`${rowId}-${colId}`}
                 value={matrixData[rowId][colId]}
                 width={cellWidth}
-                updateValue={(val) => updateValue(rowId, colId, val)}
+                updateValue={(val: string) => updateValue(rowId, colId, val)}
                 editable={!success && puzzleData[rowId][colId] === '0'}
                 disable={errorCells.length > 0}
                 hasError={errorCells.length > 0 && errorCells.indexOf(`${rowId}${colId}`) >= 0}

@@ -8,7 +8,7 @@ import {
   Button,
   Text
 } from 'react-native';
-import Matrix from './components/Matrix';
+import Matrix from './Components/Matrix';
 import SudokuGenerator from './services/generator';
 
 const sudokuGenerator = new SudokuGenerator(2);
