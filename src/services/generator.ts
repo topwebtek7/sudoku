@@ -1,5 +1,5 @@
 
-// Sudoku Matrix data generating class
+// Sudoku Matrix data generating class - Ref: https://scriptographer.org/scripts/general-scripts/sudoku-generator-solver/
 class SudokuGenerator {
   matrix: Array<number> = new Array(81);
 	blankNumbers: number;
@@ -15,24 +15,6 @@ class SudokuGenerator {
       for (let j = 0; j < 9; j++) {
         this.matrix[i * 9 + j] = (i*3 + Math.floor(i/3) + j) % 9 + 1;
       }
-		}
-
-    // randomly shuffle the numbers in the root sudoku
-		for(let i = 0; i < 42; i++) {
-			const n1 = Math.ceil(Math.random() * 9);
-			let n2;
-			do {
-				n2 = Math.ceil(Math.random() * 9);
-			} while(n1 == n2);
-
-			for(let row = 0; row < 9; row++) {
-				for(let col = 0; col < col; col++) {
-					if(this.matrix[row * 9 + col] == n1)
-						this.matrix[row * 9 + col] = n2;
-					else if(this.matrix[row * 9 + col] == n2)
-						this.matrix[row * 9 + col] = n1;
-				}
-			}
 		}
 
 		// randomly swap corresponding columns from each column of subsquares

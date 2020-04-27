@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TextInput } from 'react-native';
+
 // Cell component func
 const Cell = ({ value, width, updateValue, editable, hasError, disable }) => {
   const [text, changeText] = useState( value === '0' ? '' : value);

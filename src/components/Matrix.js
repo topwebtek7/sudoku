@@ -10,7 +10,9 @@ import SudokuValidator from '../services/validator';
 import { sleep } from '../services/sleep';
 import Cell from './Cell';
 
-const cellWidth = (Math.round(Dimensions.get('window').width) - 30) / 9; // calc one Cell width from device width
+// calc one Cell width from device width
+const cellWidth = (Math.round(Dimensions.get('window').width) - 30) / 9;
+
 // Sudoku Matrix component func
 const Matrix = ({ puzzleData, success, filledAll }) => {
   const [matrixData, updateMatrix] = useState(puzzleData);
@@ -28,7 +30,7 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
     }
   }, [validFills]);
 
-  // Update value
+  // update value
   const updateValue = (rowId, colId, val) => {
     const updatedMatrixData = JSON.parse(JSON.stringify(matrixData));
     updatedMatrixData[rowId][colId] = val;
@@ -36,6 +38,7 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
     // validate
     validate(updatedMatrixData, rowId, colId);
   }
+
   // validate
   const validate = (updatedMatrixData, rowId, colId) => {
     const validator = new SudokuValidator(updatedMatrixData, rowId, colId);
@@ -47,6 +50,7 @@ const Matrix = ({ puzzleData, success, filledAll }) => {
     }
     setErrorCells(squareErrors, rowColErrors);
   }
+  
   // set error cells
   const setErrorCells = async (squareErrors, rowColErrors) => {
     if (squareErrors.length > 0) {

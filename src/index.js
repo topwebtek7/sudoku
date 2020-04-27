@@ -13,6 +13,7 @@ import SudokuGenerator from './services/generator';
 
 const sudokuGenerator = new SudokuGenerator(2);
 const newSudokuData = sudokuGenerator.generate();
+
 // Sudoku main app component func
 const SudokuApp = () => {
   const [puzzleData, updatePuzzleData] = useState([...newSudokuData]);
